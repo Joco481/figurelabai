@@ -1,0 +1,14 @@
+% --AUTO-KNOBS--
+\def\axisLift{0.0}
+\def\lineThick{1.2pt}
+\def\springAmp{0.6}
+\def\springTurns{8}
+% --/AUTO-KNOBS--
+
+% Put only the TikZ body that would live inside \begin{figurlab}...\end{figurlab}
+% Example skeleton (edit per figure later):
+\begin{tikzpicture}
+  % axes example using your styles
+  \draw[axis] (-0.2,\axisLift) -- (6,\axisLift);
+  % ...
+\end{tikzpicture}
