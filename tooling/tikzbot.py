@@ -1,119 +1,139 @@
 #!/usr/bin/env python3
-import subprocess, sys, json, yaml, re, shutil
+import subprocess, json, re, shutil
 from pathlib import Path
+import cv2
 import numpy as np
 from skimage.metrics import structural_similarity as ssim
-import cv2
 
 ROOT = Path(__file__).resolve().parents[1]
 PNG_DIR = ROOT / "png"
-TIKZ_DIR = ROOT / "figures" / "tikz"
+CH_DIR = ROOT / "figures" / "chapters"
+GEN_DIR = CH_DIR / "_generated"
 OUT_DIR = ROOT / "figures" / "out"
-MAP_YAML = ROOT / "figures" / "map.yaml"
+TIKZ_DIR = ROOT / "figures" / "tikz"
 
-# Tunable thresholds
 SSIM_OK = 0.985
-
-TEMPLATE = r"""
-\documentclass[tikz,border=2pt]{standalone}
-\input{../preamble/preamble}
-\begin{document}
-\begin{figurlab}
-% --AUTO-START--
-% knobs:
-% \def\springAmp{0.5}
-% \def\springTurns{8}
-% \def\axisShift{0.0} % move axis up/down
-% \def\lineThick{1.2pt}
-% YOUR TIKZ HERE; use the knobs above where possible.
-% --AUTO-END--
-\end{figurlab}
-\end{document}
-"""
 
 def run(cmd, cwd=None):
     subprocess.run(cmd, cwd=cwd, check=True)
 
-def ensure_tex(name):
-    tex = TIKZ_DIR / f"{name}.tex"
-    if not tex.exists():
-        tex.parent.mkdir(parents=True, exist_ok=True)
-        tex.write_text(TEMPLATE)
-    return tex
+def compile_driver(driver_tex):
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    run(["latexmk", "-pdf", str(driver_tex)], cwd=ROOT)
 
-def compile_tex(tex):
-    run(["latexmk", "-pdf", str(tex)], cwd=ROOT)
-
-def pdf_to_png(pdf_path, png_out):
-    # Use Ghostscript or ImageMagick; try gs first
+def pdf_to_png(pdf_path, out_prefix):
     if shutil.which("gs"):
         run([
-            "gs", "-dSAFER", "-dBATCH", "-dNOPAUSE", "-sDEVICE=pngalpha",
-            "-r300", f"-sOutputFile={png_out}", str(pdf_path)
+            "gs","-dSAFER","-dBATCH","-dNOPAUSE","-sDEVICE=pngalpha","-r300",
+            f"-sOutputFile={str(out_prefix)}_%03d.png", str(pdf_path)
         ])
+    elif shutil.which("magick"):
+        run(["magick","-density","300",str(pdf_path),str(out_prefix)+"_%03d.png"])
     else:
-        run(["magick", "-density", "300", str(pdf_path), "-quality", "100", str(png_out)])
+        raise RuntimeError("Need Ghostscript or ImageMagick")
 
-def compare(a_path, b_path):
-    a = cv2.imread(str(a_path), cv2.IMREAD_UNCHANGED)
-    b = cv2.imread(str(b_path), cv2.IMREAD_UNCHANGED)
-    # Convert to grayscale for SSIM
-    a_gray = cv2.cvtColor(a, cv2.COLOR_BGR2GRAY)
-    b_gray = cv2.cvtColor(b, cv2.COLOR_BGR2GRAY)
-    # Resize to match if needed
-    if a_gray.shape != b_gray.shape:
-        b_gray = cv2.resize(b_gray, (a_gray.shape[1], a_gray.shape[0]))
-    score, _ = ssim(a_gray, b_gray, full=True)
+def to_gray(imgpath):
+    img = cv2.imread(str(imgpath), cv2.IMREAD_UNCHANGED)
+    if img is None:
+        raise RuntimeError(f"Cannot read {imgpath}")
+    if img.ndim == 3:
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    return img
+
+def ssim_score(a, b):
+    if a.shape != b.shape:
+        b = cv2.resize(b, (a.shape[1], a.shape[0]))
+    score, _ = ssim(a, b, full=True)
     return score
 
-def tweak_knobs(tex_path, adjust):
-    text = tex_path.read_text()
-    # Simple knob edits by regex replacing values in defs
-    for knob, newval in adjust.items():
-        text = re.sub(rf"(\\def\\{knob}\{{)([^}}]+)(\}})", rf"\g<1>{newval}\g<3>", text)
-    tex_path.write_text(text)
+def tweak_knobs(snippet_path, adjust):
+    txt = snippet_path.read_text(encoding="utf-8")
+    for knob, val in adjust.items():
+        # replace \def\knob{...}
+        txt = re.sub(rf"(\\def\\{knob}\{{)[^}}]+(\}})", rf"\g<1>{val}\2", txt)
+    snippet_path.write_text(txt, encoding="utf-8")
+
+def build_manifest_for_driver(ch_slug):
+    """Map page -> (target_png, snippet_path)"""
+    # Recreate list of snippets in the same order as _generated list
+    list_tex = GEN_DIR / f"{ch_slug}_list.tex"
+    items = []
+    for line in list_tex.read_text(encoding="utf-8").splitlines():
+        m = re.search(r"\\input\{([^\}]+)\}", line)
+        if m:
+            rel = m.group(1)
+            snip = (CH_DIR / rel).resolve()  # via chapters dir
+            # deduce target png by snippet filename
+            stem = Path(rel).name.replace(".tikz.tex","")
+            # If it looks like NN_M_xxx, use that png name; else misc name
+            target = PNG_DIR / f"{stem}.png"
+            if not target.exists():
+                # fall back: misc arbitrary names
+                target = PNG_DIR / f"{stem}.png"
+            items.append({"stem": stem, "snippet": snip, "target": target})
+    return items
+
+def refine_page_once(item, gen_png):
+    # Compare and optionally tweak knobs
+    a = to_gray(item["target"])
+    b = to_gray(gen_png)
+    score = ssim_score(a, b)
+    print(f"  - {item['stem']}: SSIM={score:.5f}")
+    if score >= SSIM_OK:
+        return True, score
+    # simple heuristic knobs – extend with your own rules
+    adjust = {}
+    if score < 0.96:
+        adjust.update({"springAmp":"0.8","springTurns":"12"})
+    else:
+        adjust.update({"lineThick":"1.6pt","axisLift":"0.12"})
+    tweak_knobs(Path(item["snippet"]), adjust)
+    return False, score
 
 def main():
-    mapping = {}
-    if MAP_YAML.exists():
-        mapping = yaml.safe_load(MAP_YAML.read_text()) or {}
+    # 1) Generate/update chapter lists and drivers
+    run(["python", "tooling/gen_chapter_list.py"], cwd=ROOT)
 
-    for png in sorted(PNG_DIR.glob("*.png")):
-        name = png.stem
-        tex = ensure_tex(name)
-        pdf = OUT_DIR / f"{name}.pdf"
-        genpng = OUT_DIR / f"{name}.png"
+    # 2) Find drivers to process (chapters + misc)
+    drivers = sorted(CH_DIR.glob("*_figs.tex"))
 
-        # Try a few refinement rounds
-        for attempt in range(6):
-            compile_tex(tex)
-            pdf_to_png(pdf, genpng)
-            score = compare(png, genpng)
-            print(f"[{name}] attempt {attempt} SSIM={score:.5f}")
+    for drv in drivers:
+        ch_slug = drv.stem.replace("_figs","")  # ch11, misc, ...
+        print(f"[{ch_slug}] compiling...")
+        compile_driver(drv)
 
-            if score >= SSIM_OK:
-                # commit and move on
-                run(["git", "add", str(tex), str(pdf), str(genpng)], cwd=ROOT)
-                run(["git", "commit", "-m", f"fig({name}): auto-match SSIM {score:.4f}"], cwd=ROOT)
-                break
-            else:
-                # naive heuristic tweaks (example)
-                # You can extend with per-figure rules in map.yaml
-                adjust = {}
-                if score < 0.96:
-                    adjust["springAmp"] = "0.7"
-                    adjust["springTurns"] = "10"
-                else:
-                    adjust["lineThick"] = "1.6pt"
-                    adjust["axisShift"] = "0.15"
+        pdf = drv.with_suffix(".pdf")
+        out_prefix = OUT_DIR / ch_slug
+        pdf_to_png(pdf, out_prefix)
 
-                # Merge with map.yaml hints if present
-                if name in mapping.get("hints", {}):
-                    adjust.update(mapping["hints"][name])
+        items = build_manifest_for_driver(ch_slug)
+        # Iterate pages in order
+        for i, item in enumerate(items, start=1):
+            gen_png = Path(f"{out_prefix}_{i:03d}.png")
+            # Try up to N refinement rounds for this single figure
+            for attempt in range(6):
+                ok, score = refine_page_once(item, gen_png)
+                if ok:
+                    break
+                # Recompile only this one snippet quickly via a temporary 1-figure driver
+                tmp = OUT_DIR / f"tmp_single_{ch_slug}.tex"
+                tmp.write_text(
+                    "\\documentclass{ximera}\n"
+                    "\\input{../../preamble/preamble}\n"
+                    "\\PassOptionsToPackage{active,tightpage}{preview}\n"
+                    "\\usepackage{preview}\n\\PreviewEnvironment{figurlab}\n"
+                    "\\begin{document}\n\\begin{figurlab}\n"
+                    f"\\input{{{item['snippet'].relative_to(CH_DIR).as_posix()}}}\n"
+                    "\\end{figurlab}\n\\end{document}\n",
+                    encoding="utf-8"
+                )
+                compile_driver(tmp)
+                pdf_to_png(tmp.with_suffix(".pdf"), out_prefix)  # overwrites _001.png
+                gen_png = Path(f"{out_prefix}_001.png")          # tmp has single page
 
-                tweak_knobs(tex, adjust)
-        else:
-            print(f"[{name}] did not reach target SSIM; leaving for manual review.")
+            # Commit snippet + last output
+            subprocess.run(["git","add",str(item["snippet"]), str(gen_png)], cwd=ROOT)
+        subprocess.run(["git","commit","-m",f"{ch_slug}: auto-fig updates"], cwd=ROOT)
 
 if __name__ == "__main__":
     main()
