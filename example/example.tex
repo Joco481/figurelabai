@@ -1,0 +1,314 @@
+\documentclass{ximera}
+\input{../preamble.tex}
+\usetikzlibrary{decorations.pathreplacing} %add to preamble
+
+\addPrintStyle{..}
+
+
+% Define the figurelab environment
+\newenvironment{figurelab}[1][scale=1]{
+    \begin{center}
+    \begin{tikzpicture}[#1]
+    % Add a grid for editing purposes (only visible in this environment)
+    \draw[step=1cm,gray!50,thin] (-5,-5) grid (5,5);
+    \draw[thick,->] (-5,0) -- (5,0) node[right] {$x$};
+    \draw[thick,->] (0,-5) -- (0,5) node[above] {$y$};
+}{
+    \end{tikzpicture}
+    \end{center}
+}
+
+\begin{document}
+   
+\section*{Figure Lab}
+
+
+% Example figure
+\begin{figurelab}[scale=1.5]
+    % Example content
+    \draw[axis] (0,0) -- (3,4) node[above] {Vector};
+    \draw[vector] (0,0) -- (2,2);
+    \node[fill=blue!20,draw] at (2,2) {Point};
+\end{figurelab}
+
+%4.1
+\begin{tikzpicture}[x=1cm,y=1cm]
+  % --- parameters
+  \def\blockw{1.8}
+  \def\blockh{1.2}
+  \def\phiang{32}    % angle of F (deg)
+  \def\x0{2.0}       % left face of initial block (keeps block at x>0)
+  \def\d{6.0}        % displacement of the block
+
+  % key points (right faces = contact points)
+  \coordinate (P0) at (\x0+\blockw,0);         % initial right face
+  \coordinate (P1L) at (\x0+\d, -\blockh/2);   % final block left-bottom
+  \coordinate (P1R) at (\x0+\d+\blockw, \blockh/2); % final block right-top
+  \coordinate (P1)  at (\x0+\d+\blockw,0);     % final right face (arrow end)
+
+  % --- floor/platform
+  \draw[rounded corners=2pt, line width=1.2pt, xmblue, fill=xmdarkblue!80]
+    (-1.2,-1.1) rectangle (13.0,-0.6);
+
+  % --- initial block (solid)
+  \draw[thick, xmred!60!black, fill=xmyellow]
+    (\x0, -\blockh/2) rectangle ++(\blockw, \blockh);
+
+  % --- final block (dashed outline + light fill)
+  \draw[very thick, xmred!60!black, dashed, dash pattern=on 6pt off 4pt, fill=xmyellow!50]
+    (P1L) rectangle (P1R);
+
+
+
+  % --- contact points (black dots)
+  \fill (P0) circle (2pt);
+  \fill (P1) circle (2pt);
+
+  % --- applied force F at angle phi, from P0
+  \draw[vector] (P0) -- ++(\phiang:2.6) node[above right=-2pt] {$\vec F$};
+
+  % --- angle marker φ at P0
+  \draw[thick] ($(P0)+(0.85,0)$) arc[start angle=0, end angle=\phiang, radius=0.85];
+  \node at ($(P0)+(0.95,0.35)$) {$\phi$};
+
+  % --- axes 
+  \draw[axis] (-1.2,0) -- (13.0,0) node[below right] {$x$};
+  \draw[axis] ( -0.4,-1.2) -- (-0.4,3.0) node[above left] {$y$};
+
+  % --- displacement vector Δr (right-face → right-face)
+   \draw[vector, xmgreen, ultra thick, shorten >=2pt, shorten <=2pt]
+   (P0) -- (P1);
+  \node[xmgreen] at ($(P0)!0.55!(P1)+(0,0.35)$) {$\Delta \vec r$};
+
+\end{tikzpicture}
+
+%4.2
+\begin{tikzpicture}[x=1cm,y=1cm]
+  % --- key points
+  \coordinate (O) at (0,0);          % origin
+  \coordinate (A) at (-2.2,1.6);     % start of curve
+  \coordinate (M) at (0.4,1.2);      % point on curve (for r and dr)
+  \coordinate (B) at (3.2,0.9);      % end of curve
+
+  % Choose a tangent direction at M (controls symmetric around M)
+  \coordinate (Cminus) at ($(M)+(-0.70,-0.35)$);
+  \coordinate (Cplus)  at ($(M)+( 0.70, 0.35)$);
+
+  % Other controls (kept high to avoid clutter)
+  \coordinate (C0) at (-1.7,2.5);
+  \coordinate (C3) at (2.4,1.5);
+
+  % --- axes
+  \draw[axis] (-2.6,0) -- (4.2,0) node[below right] {$x$};
+  \draw[axis] (0,-0.3) -- (0,3.0) node[left] {$y$};
+
+  % --- smooth curve with continuous tangent at M
+  \draw[xmgreen, very thick]
+    (A) .. controls (C0) and (Cminus) .. (M)
+        .. controls (Cplus) and (C3) .. (B);
+
+  % --- position vectors (all same color)
+  \draw[vector, xmblue] (O) -- (A) node[midway, below left=1pt] {$\vec r_1$};
+  \draw[vector, xmblue] (O) -- (B) node[midway, below right=1pt] {$\vec r_2$};
+  \draw[vector, xmblue] (O) -- (M) node[midway, left=2pt] {$\vec r$};
+
+  % --- tangent displacement d r at M (short and exactly along the tangent)
+  \draw[vector, xmblue, shorten >=1pt, shorten <=1pt]
+    (M) -- ($(M)!0.80!(Cplus)$) node[above right=-2pt] {$d\vec r$};
+
+  % --- force vector at M (red, vertical)
+  \draw[vector] (M) -- ++(0.1,1.2) node[above] {$\vec F$};
+
+  % --- points on the curve
+  \fill (A) circle (2.2pt);
+  \fill (M) circle (2.2pt);
+  \fill (B) circle (2.2pt);
+\end{tikzpicture}
+
+
+%4.3
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+  % ===== LEFT FIGURE =====
+  \begin{scope}
+    % axes
+    \draw[axis] (0,0) -- (4.4,0) node[below right] {$x$};
+    \draw[axis] (0,0) -- (0,3.0) node[left] {$F_x$};
+  
+    % key points
+    \coordinate (x1) at (1,0);
+    \coordinate (x2) at (3,0);
+    \coordinate (Fx) at (0,2); % y = Fx
+  
+    % rectangle area (fill first)
+    \fill[xmgreen!30]
+      (x1) -- (x1|-Fx) -- (x2|-Fx) -- (x2) -- cycle;
+  
+    % thicker green top edge
+    \draw[xmgreen, line width=2.0pt] (x1|-Fx) -- (x2|-Fx);
+  
+    % dashed construction lines
+    \draw[dashed] (x1) -- (x1|-Fx);
+    \draw[dashed] (x2) -- (x2|-Fx);
+  
+    % dotted from y-axis Fx to rectangle (to the top-left corner)
+    \draw[densely dotted] (Fx) -- (x1|-Fx);
+    \node[left] at (Fx) {$F_x$};
+  
+    % brace for Δx (needs decorations.pathreplacing)
+    \draw[decorate,decoration={brace,amplitude=6pt,mirror}]
+      ($(x1)+(0,-0.22)$) -- ($(x2)+(0,-0.22)$)
+      node[midway,below=7pt] {$\Delta x$};
+  
+    % labels & points
+    \node at ($(x1)!0.5!(x2)+(0,1)$) {$W$};
+    \node[below] at (x1) {$x_1$};
+    \node[below] at (x2) {$x_2$};
+    \fill (x1) circle (2pt);
+    \fill (x2) circle (2pt);
+  \end{scope}
+  
+  
+  % ===== RIGHT FIGURE =====
+  \begin{scope}[xshift=7.4cm]
+    % axes (a tad wider/taller)
+    \draw[axis] (0,0) -- (4.8,0) node[below right] {$x$};
+    \draw[axis] (0,0) -- (0,3.2) node[left] {$F_x$};
+  
+    % points
+    \coordinate (xa) at (0.8,0.30); % x1 above axis
+    \coordinate (xb) at (4.0,0);    % x2 on axis
+  
+    % ---- build filled curve (larger so labels fit inside)
+    \fill[xmgreen!30]
+      (xa) .. controls (1.4,2.5) and (2.1,2.3) .. (2.5,1.4)
+           .. controls (2.9,0.2) and (3.4,-2.0) .. (xb)
+           -- (xb) -- (xa|-0,0) -- cycle; % close to axis under start point
+  
+    % draw curve on top
+    \draw[xmgreen, very thick]
+      (xa) .. controls (1.4,2.5) and (2.1,2.3) .. (2.5,1.4)
+           .. controls (2.9,0.2) and (3.4,-2.0) .. (xb);
+  
+    % dotted vertical from x1 down to x-axis (to show x-coordinate)
+    \draw[densely dotted] (xa) -- (xa |- 0,0);
+  
+    % labels (inside lobes)
+    \node at (1.9,1.55) {$W>0$};
+    \node at (3.1,-0.95) {$W<0$};
+  
+    % x-labels and points
+    \node[below] at (xa |- 0,0) {$x_1$};
+    \node[below] at (xb) {$x_2$};
+    \fill (xa) circle (2pt);
+    \fill (xb) circle (2pt);
+  \end{scope}
+  
+  \end{tikzpicture}
+  
+% Needs in preamble: \usetikzlibrary{decorations.pathreplacing}
+
+
+%4.4
+\begin{tikzpicture}[scale=1]
+  \def\ySpring{0.8}
+  \def\xWall{0}
+  \def\xZero{7.0}
+  \def\xMass{12.4}
+  \def\rMass{0.22}
+  \def\A{0.35}    % amplitude
+  \def\N{14}      % number of coils
+  
+  % wall
+  \fill[brown!80!black] (\xWall-0.6,-0.2) rectangle (\xWall+0.15,1.95);
+  
+  % axis
+  \draw[axis] (\xWall+0.15,0) -- (\xMass+2.2,0) node[below right] {$x$};
+  
+  % dashed verticals
+  \draw[densely dashed,thick] (\xZero,-0.1) -- (\xZero,1.35);
+  \draw[densely dashed,thick] (\xMass,-0.1) -- (\xMass,1.35);
+  
+  % dots + label
+  \fill (\xZero,0) circle (2.2pt) node[below=3pt] {$0$};
+  \fill (\xMass,0) circle (2.2pt);
+  
+  % ---- spring: clean sine from wall edge to mass edge ----
+  \pgfmathsetmacro\xStart{\xWall+0.15}   % just right of wall
+  \pgfmathsetmacro\xEnd{\xMass-\rMass}        % to edge of mass
+  \pgfmathsetmacro\kdeg{360*\N/(\xEnd-\xStart)} % frequency in DEGREES
+  
+  \draw[xmblue,very thick,domain=\xStart:\xEnd,samples=600,variable=\x]
+    plot ({\x},{\ySpring + \A*sin(\kdeg*(\x-\xStart))});
+  
+  % mass
+  \fill[xmblue!70!black] (\xMass,\ySpring) circle (\rMass);
+  \draw[xmblue!70!black] (\xMass,\ySpring) circle (\rMass);
+  
+  % forces
+  \draw[vector] (\xMass,\ySpring) -- ++(-3.,0)
+    node[above, xmred, yshift=2pt, xshift=-1pt] {$\vec{F}_s$};
+  \draw[-latex, xmgreen, ultra thick] (\xMass,\ySpring) -- ++(3.,0)
+    node[above, xmgreen, yshift=2pt, xshift=2pt] {$\vec{F}_{\text{MUSCLE}}$};
+  
+  % brace and Δℓ
+  \draw[densely dashed,thick,decorate,decoration={brace,mirror,amplitude=6pt}]
+    (\xZero,-0.16) -- (\xMass,-0.16);
+  \node at ({(\xZero+\xMass)/2},-0.55) {$\Delta \ell$};
+  \end{tikzpicture}
+  
+%3.1
+\begin{tikzpicture}[scale=1]
+
+  % ===== LEFT FIGURE =====
+  \begin{scope}[shift={(0,0)}]
+    % axes
+    \draw[axis] (-1,0) -- (4.2,0) node[right] {$x$};
+    \draw[axis] (0,-0.6) -- (0,2.6) node[above] {$y$};
+  
+    % block sitting on the x-axis
+    \def\xL{0.8}\def\xR{2.6}\def\yB{0}\def\yT{1.6}
+    \filldraw[fill=xmyellow,draw=brown!80!black,thick]
+             (\xL,\yB) rectangle (\xR,\yT);
+  
+    % block center
+    \pgfmathsetmacro\xC{(\xL+\xR)/2}
+    \pgfmathsetmacro\yC{(\yB+\yT)/2}
+    \fill (\xC,\yC) circle (3pt);
+  
+    % vertical forces through the center
+    \draw[-latex,xmblue,ultra thick] (\xC,\yC) -- ++(0,1.4)
+          node[above,xmblue] {$\vec{F}_N$};
+    \draw[-latex,xmred,ultra thick]  (\xC,\yC) -- ++(0,-1.4)
+          node[below,xmred] {$\vec{F}_z$};
+  
+    % horizontal forces from the right face (F2 longer, F1 shorter)
+    \draw[-latex,xmgreen,ultra thick] (\xR,\yC+0.2) -- ++(1.4,0)
+          node[right,xmgreen] {$\vec{F}_2$};
+    \draw[-latex,xmgreen!60!white,ultra thick] (\xR,\yC-0.2) -- ++(1.0,0)
+          node[right,xmgreen!60!white] {$\vec{F}_1$};
+  \end{scope}
+  
+  % ===== RIGHT FIGURE =====
+  \begin{scope}[shift={(7.2,0)}]
+    % axes
+    \draw[axis] (-1,0) -- (4.2,0) node[right] {$x$};
+    \draw[axis] (0,-0.6) -- (0,2.6) node[above] {$y$};
+  
+    % block
+    \def\xL{0.8}\def\xR{2.6}\def\yB{0}\def\yT{1.6}
+    \filldraw[fill=xmyellow,draw=brown!80!black,thick]
+             (\xL,\yB) rectangle (\xR,\yT);
+    \pgfmathsetmacro\xC{(\xL+\xR)/2}
+    \pgfmathsetmacro\yC{(\yB+\yT)/2}
+    \fill (\xC,\yC) circle (3pt);
+  
+    % resultant force (black)
+    \draw[-latex,black,ultra thick] (\xC,\yC) -- ++(2.0,0)
+          node[above] {$\vec{F}_{\mathrm{res}}$};
+  \end{scope}
+  \end{tikzpicture}
+  
+
+
+\end{document}
