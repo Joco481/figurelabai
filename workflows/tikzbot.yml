@@ -1,51 +1,90 @@
 name: TikZBot
 
 on:
-  workflow_dispatch:    # manual trigger from Actions tab
+  # run manually from the Actions tab
+  workflow_dispatch:
+  # or automatically whenever PNGs change (you can widen this later)
   push:
     paths:
       - 'png/**'
+      - 'tooling/**'
+      - 'figures/**'
+      - 'preamble/**'
+
+permissions:
+  contents: write   # allow pushing commits with GITHUB_TOKEN
+
+concurrency:
+  group: tikzbot
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # needed to push commits
 
-    - name: Install system deps
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y latexmk \
-          texlive-latex-recommended texlive-latex-extra texlive-pictures texlive-fonts-recommended \
-          ghostscript
+      - name: Install TeX & Ghostscript
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            latexmk \
+            texlive-latex-recommended texlive-latex-extra texlive-pictures texlive-fonts-recommended \
+            ghostscript
+          # optional but sometimes handy for fonts
+          sudo apt-get install -y texlive-fonts-extra
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    - name: Install Python deps
-      run: |
-        python -m venv .venv
-        source .venv/bin/activate
-        pip install --upgrade pip
-        pip install numpy scikit-image PyYAML opencv-python-headless
+      - name: Create venv & install Python deps
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          python -m pip install --upgrade pip
+          # opencv-headless avoids X11 deps and is fine for SSIM resize/IO via cv2
+          python -m pip install numpy scikit-image PyYAML opencv-python-headless
 
-    - name: Generate chapter lists & snippets
-      run: |
-        source .venv/bin/activate
-        python tooling/gen_chapter_list.py
+      # If ximera.cls isn’t on TeX Live and you keep a copy in the repo, add its folder to TEXINPUTS.
+      # If you don’t have ximera.cls locally, you can comment this out — many installs already have it.
+      - name: Configure TEXINPUTS (optional)
+        run: |
+          echo "TEXINPUTS=./preamble/classes:$(kpsewhich -var-value TEXINPUTS)" >> $GITHUB_ENV
+        shell: bash
 
-    - name: Run TikzBot
-      run: |
-        source .venv/bin/activate
-        python tooling/tikzbot.py
+      - name: Generate chapter lists & snippet stubs
+        run: |
+          source .venv/bin/activate
+          python tooling/gen_chapter_list.py
 
-    - name: Commit results
-      run: |
-        git config user.name "tikzbot"
-        git config user.email "tikzbot@users.noreply.github.com"
-        git add figures/chapters figures/tikz figures/out
-        git commit -m "auto: tikzbot update" || echo "No changes"
-        git push
+      - name: Run TikZ auto‑refinement (tikzbot)
+        env:
+          TEXINPUTS: ${{ env.TEXINPUTS }}
+        run: |
+          source .venv/bin/activate
+          python tooling/tikzbot.py
+
+      - name: Upload generated PNGs (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tikzbot-out
+          path: |
+            figures/out/**
+            figures/chapters/*.pdf
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Commit changes (snippets, lists, outputs)
+        run: |
+          git config user.name  "tikzbot"
+          git config user.email "tikzbot@users.noreply.github.com"
+          git add figures/chapters figures/tikz figures/out || true
+          git commit -m "auto: tikzbot update (SSIM loop)" || echo "No changes to commit"
+          git push || echo "Nothing to push"
