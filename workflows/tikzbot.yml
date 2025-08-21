@@ -1,0 +1,51 @@
+name: TikZBot
+
+on:
+  workflow_dispatch:    # manual trigger from Actions tab
+  push:
+    paths:
+      - 'png/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install system deps
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y latexmk \
+          texlive-latex-recommended texlive-latex-extra texlive-pictures texlive-fonts-recommended \
+          ghostscript
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install Python deps
+      run: |
+        python -m venv .venv
+        source .venv/bin/activate
+        pip install --upgrade pip
+        pip install numpy scikit-image PyYAML opencv-python-headless
+
+    - name: Generate chapter lists & snippets
+      run: |
+        source .venv/bin/activate
+        python tooling/gen_chapter_list.py
+
+    - name: Run TikzBot
+      run: |
+        source .venv/bin/activate
+        python tooling/tikzbot.py
+
+    - name: Commit results
+      run: |
+        git config user.name "tikzbot"
+        git config user.email "tikzbot@users.noreply.github.com"
+        git add figures/chapters figures/tikz figures/out
+        git commit -m "auto: tikzbot update" || echo "No changes"
+        git push
