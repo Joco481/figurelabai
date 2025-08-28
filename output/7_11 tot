@@ -1177,7 +1177,15 @@ labelsep=endash,format=hang,skip=2pt]{caption}
 						\usepackage[european]{circuitikz}
 						\usetikzlibrary{decorations.pathreplacing} %add to preamble
 						\usetikzlibrary{calc,decorations.pathmorphing,arrows.meta}
-						
+
+				\usepackage{caption}
+				\captionsetup[figure]{justification=centering}
+				\makeatletter
+				\g@addto@macro\@floatboxreset\centering
+				\makeatother
+
+
+
 						
 						
 						
