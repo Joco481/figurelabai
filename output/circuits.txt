@@ -1,0 +1,568 @@
+8_1_2_AC
+
+	\begin{tikzpicture}[thick]
+			
+			% Left wire up to circle
+			\draw (0,0) -- (0.7,0);
+			
+			% Circle (centered at 1.3,0, radius 0.6) so wire passes through
+			\draw (1.3,0) circle (0.6);
+			
+			% AC symbol inside
+			\node at (1.3,0) {$\sim$};
+			
+			% Wire continues
+			\draw (1.9,0) -- (4,0);
+			
+		\end{tikzpicture}
+
+8_1_2_DC	
+
+	\begin{tikzpicture}[line cap=round,line join=round,thick]
+		% Left line
+		\draw (-3,0) -- (-0.5,0);
+		% Negative plate (shorter, thicker)
+		\draw[line width=2.5pt] (-0.5,-0.6) -- (-0.5,0.6);
+		% Positive plate (longer, thin)
+		\draw (0.5,-1) -- (0.5,1);
+		% Right line
+		\draw (0.5,0) -- (3,0);
+		% Signs
+		\node at (-1,0.4) {$-$};
+		\node at (1.0,0.4) {$+$};
+	\end{tikzpicture}
+
+
+9_1_b_parallel
+
+	\begin{tikzpicture}[thick]
+			
+			% --- End terminals (solid dots) ---
+			\fill (-1,0) circle (2pt) node[left] {};
+			\fill ( 5,0) circle (2pt) node[right] {};
+			
+			% --- Short leads to bus bars ---
+			\draw (-1,0) -- (-0.2,0);
+			\draw ( 5,0) -- ( 4.2,0);
+			
+			% --- Vertical bus bars ---
+			\draw (-0.2,-0.9) -- (-0.2, 0.9);
+			\draw ( 4.2,-0.9) -- ( 4.2, 0.9);
+			
+			% --- Top branch resistor ---
+			\draw (-0.2,0.9) -- (0.4,0.9);
+			\draw (0.4,0.6) rectangle (3.6,1.2);
+			\node at (2,0.9) {R};
+			\draw (3.6,0.9) -- (4.2,0.9);
+			
+			% --- Bottom branch resistor ---
+			\draw (-0.2,-0.9) -- (0.4,-0.9);
+			\draw (0.4,-1.2) rectangle (3.6,-0.6);
+			\node at (2,-0.9) {R};
+			\draw (3.6,-0.9) -- (4.2,-0.9);
+			
+		\end{tikzpicture}
+
+9_1_c_gemengd
+
+	\begin{tikzpicture}[thick]
+			
+			% --- End terminals (solid dots) ---
+			\fill (0,0) circle (2pt) node[left] {};
+			\fill (6,0) circle (2pt) node[right] {};
+			
+			% --- Top rail: series R1 and R2 ---
+			\draw (0,0) -- (0.6,0);                 % left lead
+			% R1
+			\draw (0.6,-0.4) rectangle (2.2,0.4);
+			\node at (1.4,0) {R$_1$};
+			\draw (2.2,0) -- (3.0,0);
+			% R2
+			\draw (3.0,-0.4) rectangle (4.6,0.4);
+			\node at (3.8,0) {R$_2$};
+			\draw (4.6,0) -- (6.0,0);               % right lead
+			
+			% --- Shunt branch: R3 ---
+			\draw (2.8,-1.6) -- (3,-1.6);
+			\draw (4.6,-1.6) -- (5.2,-1.6);
+			\draw (2.8,0) -- (2.8,-1.6);            % down
+			\draw (3.0,-2.0) rectangle (4.6,-1.2);  % resistor
+			\node at (3.8,-1.6) {R$_3$};
+			\draw (5.2,-1.6) -- (5.2,0);            % back up
+			
+		\end{tikzpicture}
+
+
+9_2_a_serie
+
+	\begin{tikzpicture}[thick, line cap=round, line join=round]
+			
+			% --- Coordinates ---
+			\coordinate (L) at (0,0);      
+			\coordinate (A) at (0.9,0);    
+			\coordinate (B) at (2.9,0);    
+			\coordinate (M) at (3.1,0);    
+			\coordinate (C) at (4.1,0);    
+			\coordinate (D) at (6.1,0);    
+			\coordinate (R) at (6.7,0);    
+			
+			% --- End dots + connections ---
+			\fill (L) circle (2.6pt);
+			\draw (L) -- (A);
+			
+			% --- R1 ---
+			\draw let \p1 = (A), \p2 = (B) in
+			(\x1,-0.4) rectangle (\x2,0.4);
+			\node at ($(A)!0.5!(B)$) {R$_1$};
+			\draw (B) -- (M);
+			
+			\fill (M) circle (2.6pt);
+			\draw (M) -- (C);
+			
+			% --- R2 ---
+			\draw let \p1 = (C), \p2 = (D) in
+			(\x1,-0.4) rectangle (\x2,0.4);
+			\node at ($(C)!0.5!(D)$) {R$_2$};
+			\draw (D) -- (R);
+			
+			\fill (R) circle (2.6pt);
+			
+			% --- Currents ---
+			\draw[-latex, ultra thick] ($(L)+(0.14,0)$) -- (A)
+			node[pos=0.55, above=5pt, text=black] {$I_1$};
+			\draw[-latex, ultra thick] ($(M)+(0.14,0)$) -- (C)
+			node[pos=0.55, above=5pt, text=black] {$I_2$};
+			
+		\end{tikzpicture}
+
+9_2_b_spanning
+
+	\begin{tikzpicture}[thick, line cap=round, line join=round]
+			
+			% --- Coordinates ---
+			\coordinate (L) at (0,0);      % left terminal
+			\coordinate (A) at (0.9,0);    % start R1
+			\coordinate (B) at (2.9,0);    % end R1
+			\coordinate (M) at (3.1,0);    % middle node
+			\coordinate (C) at (4.1,0);    % start R2
+			\coordinate (D) at (6.1,0);    % end R2
+			\coordinate (R) at (6.7,0);    % right terminal
+			
+			% --- End + middle dots ---
+			\fill (L) circle (2.6pt);
+			\fill (M) circle (2.6pt);
+			\fill (R) circle (2.6pt);
+			
+			% --- R1 ---
+			\draw (L) -- (A);
+			\draw let \p1=(A), \p2=(B) in
+			(\x1,-0.4) rectangle (\x2,0.4);
+			\node at ($(A)!0.5!(B)$) {R$_1$};
+			\draw (B) -- (M);
+			
+			% --- R2 ---
+			\draw (M) -- (C);
+			\draw let \p1=(C), \p2=(D) in
+			(\x1,-0.4) rectangle (\x2,0.4);
+			\node at ($(C)!0.5!(D)$) {R$_2$};
+			\draw (D) -- (R);
+			
+			% --- Currents (red arrows, labels black) ---
+			\draw[-latex, ultra thick, xmred] ($(L)+(0.12,0)$) -- (A)
+			node[pos=0.55, above=6pt, text=black] {$I$};
+			\draw[-latex, ultra thick, xmred] (M) -- (C)
+			node[pos=0.55, above=6pt, text=black] {$I$};
+			
+			% --- Braces for voltages (needs decorations.pathreplacing) ---
+			\draw[dashed, decorate, decoration={brace,mirror,amplitude=4.5pt}]
+			($(L)-(0,0.42)$) -- ($(M)-(0.2,0.42)$)
+			node[midway, below=7pt] {$U_1$};
+			
+			\draw[dashed, decorate, decoration={brace,mirror,amplitude=4.5pt}]
+			($(M)+(0.2,-0.42)$) -- ($(R)-(0,0.42)$)
+			node[midway, below=7pt] {$U_2$};
+			
+		\end{tikzpicture}
+
+9_2_c_stroom
+
+	
+	\begin{tikzpicture}[thick, line cap=round, line join=round]
+			
+			% ========== LEFT CIRCUIT (R1 + horizontal battery at bottom right) ==========
+			\begin{scope}[shift={(0,0)}]
+				\coordinate (LL) at (0,0);
+				\coordinate (UL) at (0,2.2);
+				\coordinate (UR) at (5.8,2.2);
+				\coordinate (LR) at (5.8,0);
+				
+				% Top side with R1 (rectangle resistor)
+				\draw (UL) -- (1.3,2.2);
+				\draw (1.3,2.4) rectangle (2.9,2.0);
+				\node at (2.1,2.6) {$R_1$};
+				\draw (2.9,2.2) -- (UR);
+				
+				% Right side
+				\draw (UR) -- (LR);
+				
+				% Bottom side with horizontal battery
+				\draw (LR) -- (3.7,0);
+				% battery: short + long line
+				\draw (2.8,-0.3) -- (2.8,0.3); % short plate
+				\draw (2.4,-0.5) -- (2.4,0.5); % long plate
+				\node at (2.6,0.8) {$U$};
+				\draw (3.7,0) -- (2.8,0);
+				\draw (2.4,0) -- (LL);
+				
+				% Left side
+				\draw (LL) -- (UL);
+				
+				% Current arrows
+				\draw[vector] (0.2,2.2) -- (1.1,2.2) node[pos=.6,above=5pt,text=black] {$I$};
+				\draw[vector] (2.3,0) -- (1,0)      node[pos=.55,above=5pt,text=black] {$I$};
+			\end{scope}
+			
+			
+			% ========== RIGHT CIRCUIT (R1–R2 + horizontal battery at bottom left) ==========
+			\begin{scope}[shift={(7.2,0)}]
+				\coordinate (LL) at (0,0);
+				\coordinate (UL) at (0,2.2);
+				\coordinate (UR) at (7.2,2.2);
+				\coordinate (LR) at (7.2,0);
+				
+				% Top side with R1 then R2
+				\draw (UL) -- (1.2,2.2);
+				\draw (1.2,2.4) rectangle (2.8,2.0);
+				\node at (2.0,2.6) {$R_1$};
+				\draw (2.8,2.2) -- (4.0,2.2);
+				\draw (4.0,2.4) rectangle (5.6,2.0);
+				\node at (4.8,2.6) {$R_2$};
+				\draw (5.6,2.2) -- (UR);
+				
+				% Right side
+				\draw (UR) -- (LR);
+				
+				% Bottom side with horizontal battery near left
+				\draw (LR) -- (6.8,0);
+				\draw (0.9,-0.3) -- (0.9,0.3); % short plate
+				\draw (0.5,-0.5) -- (0.5,0.5); % long plate
+				\node at (0.7,0.8) {$U$};
+				\draw (6.8,0) -- (0.9,0);
+				\draw (0.5,0) -- (LL);
+				
+				% Left side
+				\draw (LL) -- (UL);
+				
+				% Current arrows
+				\draw[vector] (0.2,2.2) -- (1.0,2.2) node[pos=.6,above=5pt,text=black] {$I$};
+				\draw[vector] (3.0,2.2) -- (4.3,2.2) node[pos=.55,above=5pt,text=black] {$I$};
+				\draw[vector] (6.0,2.2) -- (7.0,2.2) node[pos=.55,above=5pt,text=black] {$I$};
+				\draw[vector] (3.0,0)    -- (1.7,0)    node[pos=.6,above=5pt,text=black] {$I$};
+			\end{scope}
+			
+		\end{tikzpicture}
+
+9_3_a_spanning
+
+	\begin{tikzpicture}[thick, line cap=round, line join=round]
+			
+			% --- terminals ---
+			\node[circle,fill=black,inner sep=2.4pt] (L) at (-1.0,0) {};
+			\node[circle,fill=black,inner sep=2.4pt] (R) at ( 6.0,0) {};
+			\draw (L) -- (1.2,0);
+			\draw (4.8,0) -- (R);
+			
+			% --- vertical bus bars (mirrored) ---
+			\draw (1.2,-0.7) -- (1.2, 0.7);
+			\draw (4.8,-0.7) -- (4.8, 0.7);
+			
+			% --- top branch resistor (rectangle style) ---
+			\draw (1.2,0.7) -- (1.8,0.7);
+			\draw (1.8,0.9) rectangle (4.2,0.5);
+			\draw (4.2,0.7) -- (4.8,0.7);
+			
+			% --- bottom branch resistor (rectangle style) ---
+			\draw (1.2,-0.7) -- (1.8,-0.7);
+			\draw (1.8,-0.5) rectangle (4.2,-0.9);
+			\draw (4.2,-0.7) -- (4.8,-0.7);
+			
+			% --- dashed braces for voltages ---
+			\draw[dashed,decorate,decoration={brace,amplitude=5pt,raise=3pt}]
+			(1.2, 1.05) -- (4.8, 1.05)
+			node[midway,above=7pt] {$U_{2}$};
+			
+			\draw[dashed,decorate,decoration={brace,mirror,amplitude=5pt,raise=3pt}]
+			(1.2,-1.05) -- (4.8,-1.05)
+			node[midway,below=7pt] {$U_{1}$};
+			
+		\end{tikzpicture}
+
+9_3_b_stroom
+
+	\begin{tikzpicture}[thick, line cap=round, line join=round]
+			
+			% --- terminals ---
+			\node[circle,fill=black,inner sep=2.5pt] (L) at (-1.0,0) {};
+			\node[circle,fill=black,inner sep=2.5pt] (R) at ( 6.0,0) {};
+			
+			% --- left lead into the fork + right lead out ---
+			\draw (L) -- (1.0,0);
+			\draw (5.0,0) -- (R);
+			
+			% --- vertical bus bars (mirrored) ---
+			\draw (1.0,-0.6) -- (1.0,0.6);
+			\draw (5.0,-0.6) -- (5.0,0.6);
+			
+			% --- top branch resistor (rectangle style) ---
+			\draw (1.0,0.6) -- (1.8,0.6);
+			\draw (1.8,0.8) rectangle (4.2,0.4);
+			\node at (3.0,1.0) {$R$};
+			\draw (4.2,0.6) -- (5.0,0.6);
+			
+			% --- bottom branch resistor (rectangle style) ---
+			\draw (1.0,-0.6) -- (1.8,-0.6);
+			\draw (1.8,-0.4) rectangle (4.2,-0.8);
+			\node at (3.0,-1.0) {$R$};
+			\draw (4.2,-0.6) -- (5.0,-0.6);
+			
+			% --- current arrows (red), labels in black ---
+			\draw[vector] (-0.7,0) -- (0.8,0)
+			node[pos=.55,above=6pt,text=black] {$I$};
+			
+			\draw[vector] (1.2,0.6) -- (1.9,0.6)
+			node[pos=.55,above=6pt,text=black] {$I_1$};
+			
+			\draw[vector] (1.2,-0.6) -- (1.9,-0.6)
+			node[pos=.55,below=6pt,text=black] {$I_2$};
+			
+		\end{tikzpicture}
+
+
+9_3_c_oefening
+
+	\begin{tikzpicture}[thick, line cap=round, line join=round]
+			
+			% ===== coordinates (same names as your original) =====
+			\coordinate (LT) at (0,2.6);
+			\coordinate (RT) at (10.2,2.6);
+			
+			% ===== top rail with horizontal battery =====
+			% left wire to battery
+			\draw (LT) -- (5.0,2.6);
+			
+			% battery plates between x=5.0 and x=6.2
+			% long plate (left), short plate (right)
+			\draw (5.35,2.1) -- (5.35,3.1);   % long
+			\draw (5.85,2.25) -- (5.85,2.95); % short
+			% battery leads
+			\draw (5.0,2.6) -- (5.35,2.6);
+			\draw (5.85,2.6) -- (6.2,2.6);
+			% battery label
+			\node at (5.6,3.25) {$U$};
+			
+			% right wire after battery to RT
+			\draw (6.2,2.6) -- (RT);
+			
+			% right side down to R4 level
+			\draw (RT) -- (10.2,0);
+			
+			% left side down to the parallel network
+			\draw (LT) -- (0,-0.9) -- (1.4,-0.9);
+			
+			% ===== parallel block (lowered, roomy spacing) =====
+			\def\yt{0}      % top branch y
+			\def\yb{-1.6}   % bottom branch y
+			
+			% block left side
+			\draw (1.4,\yb) -- (1.4,\yt);
+			
+			% ----- top path: R1 then R2 -----
+			% lead-in
+			\draw (1.4,\yt) -- (2.0,\yt);
+			
+			% R1 rectangle (2.0 -> 4.0 at y=\yt, height 0.6)
+			\draw (2.0,\yt+0.3) rectangle (4.0,\yt-0.3);
+			\node at (3.0,\yt+0.55) {$R_1$};
+			\node[fill=white,inner sep=1.4pt] at (3.0,\yt) {$10\,\Omega$};
+			
+			% wire between R1 and R2
+			\draw (4.0,\yt) -- (4.8,\yt);
+			
+			% R2 rectangle (4.8 -> 6.6 at y=\yt, height 0.6)
+			\draw (4.8,\yt+0.3) rectangle (6.6,\yt-0.3);
+			\node at (5.7,\yt+0.55) {$R_2$};
+			\node[fill=white,inner sep=1.6pt] at (5.7,\yt) {$20\,\Omega$};
+			
+			% lead-out to the right edge of block (x=7)
+			\draw (6.6,\yt) -- (7.0,\yt);
+			
+			% ----- bottom path: R3 -----
+			% lead-in
+			\draw (1.4,\yb) -- (3.0,\yb);
+			
+			% R3 rectangle (3.0 -> 4.8 at y=\yb, height 0.6)
+			\draw (3.0,\yb+0.3) rectangle (4.8,\yb-0.3);
+			\node at (3.9,\yb+0.55) {$R_3$};
+			\node[fill=white,inner sep=1.6pt] at (3.9,\yb) {$30\,\Omega$};
+			
+			% lead-out to x=7
+			\draw (4.8,\yb) -- (7.0,\yb);
+			
+			% join out of the block at y=0 (to align with R4)
+			\draw (7.0,\yb) -- (7.0,0);
+			
+			% ===== series R4 on the lower-right branch and return =====
+			% lead to R4
+			\draw (7.0,0) -- (8.2,0);
+			
+			% R4 rectangle (8.2 -> 9.5 at y=0, height 0.6)
+			\draw (8.2,0.3) rectangle (9.5,-0.3);
+			\node at (8.85,0.55) {$R_4$};
+			\node[fill=white,inner sep=1.6pt] at (8.85,0) {$40\,\Omega$};
+			
+			% wire to right side and back up to top
+			\draw (9.5,0) -- (10.2,0) -- (10.2,2.6);
+			
+		\end{tikzpicture}
+
+9_3_remark
+
+	\begin{tikzpicture}[thick, line cap=round, line join=round]
+		
+		% ---- layout knobs (letters only) ----
+		\def\XLeft{0}    \def\XRight{9.0}
+		\def\YTop{2.5}   \def\YOne{1}   \def\YTwo{-0.3}   \def\YThree{-1.6}
+		\def\YBot{-1.6}
+		
+		% ---- outer rails ----
+		% top rail split to insert battery
+		\draw (\XLeft,\YTop) -- (3.9,\YTop);
+		\draw (5.1,\YTop) -- (\XRight,\YTop);
+		
+		% left & right verticals
+		\draw (\XLeft,\YBot) -- (\XLeft,\YTop);
+		\draw (\XRight,\YBot) -- (\XRight,\YTop);
+		
+		% ---- horizontal battery on the top rail (between 3.9 and 5.1) ----
+		% leads into plates
+		\draw (3.9,\YTop) -- (4.3,\YTop);
+		\draw (4.7,\YTop) -- (5.1,\YTop);
+		% plates: long (left) & short (right)
+		\draw (4.3,\YTop-0.4) -- (4.3,\YTop+0.4); % long plate
+		\draw (4.7,\YTop-0.3) -- (4.7,\YTop+0.3); % short plate
+		% label
+		\node at (4.5,\YTop+0.55) {$U$};
+		
+		% ---- branches with R inside the boxes ----
+		% helper: resistor box height = 0.6 -> ±0.3
+		% R1 (y = \YOne), from x=2.0 to x=5.0
+		\draw (\XLeft,\YOne) -- (2.0,\YOne);
+		\draw (2.0,\YOne+0.3) rectangle (5.0,\YOne-0.3);
+		\node at (3.5,\YOne) {$R_1$};
+		\draw (5.0,\YOne) -- (\XRight,\YOne);
+		
+		% R2 (y = \YTwo)
+		\draw (\XLeft,\YTwo) -- (2.0,\YTwo);
+		\draw (2.0,\YTwo+0.3) rectangle (5.0,\YTwo-0.3);
+		\node at (3.5,\YTwo) {$R_2$};
+		\draw (5.0,\YTwo) -- (\XRight,\YTwo);
+		
+		% R3 (y = \YThree)
+		\draw (\XLeft,\YThree) -- (2.0,\YThree);
+		\draw (2.0,\YThree+0.3) rectangle (5.0,\YThree-0.3);
+		\node at (3.5,\YThree) {$R_3$};
+		\draw (5.0,\YThree) -- (\XRight,\YThree);
+		
+		% ---- current arrows (use your 'vector' style; labels in black) ----
+		\draw[vector] (1.8,\YTop) -- (0.7,\YTop)
+		node[pos=.55,above=6pt,text=black] {$I$};
+		\draw[vector] (0.5,\YOne) -- (1.8,\YOne)
+		node[pos=.55,above=5pt,text=black] {$I_1$};
+		\draw[vector] (0.5,\YTwo) -- (1.8,\YTwo)
+		node[pos=.55,above=5pt,text=black] {$I_2$};
+		\draw[vector] (0.5,\YThree) -- (1.8,\YThree)
+		node[pos=.55,above=5pt,text=black] {$I_3$};
+		
+	\end{tikzpicture}
+
+9_3_schakelaar
+
+	\begin{tikzpicture}[thick, line cap=round, line join=round]
+		% left wire + terminal dot
+		\draw (-2,0) -- (-0.4,0);
+		\node[circle,fill=black,inner sep=2.6pt] (L) at (-0.4,0) {};
+		
+		% right wire + terminal dot
+		\draw ( 2,0) -- ( 0.8,0);
+		\node[circle,fill=black,inner sep=2.6pt] (R) at ( 0.8,0) {};
+		
+		% switch lever (open)
+		\draw (L) -- ++(0.95,0.85);
+		
+		% (optional) fixed contact stub near R for switch look:
+		% \draw (R) -- ++(-0.35,0.2);
+	\end{tikzpicture}
+
+9_3_symbolen
+
+	\begin{tikzpicture}[thick, line cap=round, line join=round]
+		% layout
+		\def\xA{0} \def\xB{6} \def\xC{12}
+		\def\yT{2.2} \def\yB{-3.0}
+		
+		% ===== TOP ROW =====
+		% --- Capacitor (centered plates, circuitikz-like gap) ---
+		\def\capLead{2.2} \def\capGap{1.2} \def\capH{0.5}
+		\draw (\xA-\capLead,\yT) -- (\xA-\capGap/2,\yT);
+		\draw (\xA-\capGap/2,\yT-\capH) -- (\xA-\capGap/2,\yT+\capH);
+		\draw (\xA+\capGap/2,\yT-\capH) -- (\xA+\capGap/2,\yT+\capH);
+		\draw (\xA+\capGap/2,\yT) -- (\xA+\capLead,\yT);
+		\node[below=10pt] at (\xA,\yT) {\textit{condensator}};
+		
+		% --- Diode (triangle -> bar) ---
+		\def\dioLead{2.2} \def\dioH{0.7}
+		\draw (\xB-\dioLead,\yT) -- (\xB-0.9,\yT);
+		\draw (\xB-0.9,\yT+\dioH) -- (\xB-0.9,\yT-\dioH) -- (\xB+0.25,\yT) -- cycle; % triangle
+		\draw (\xB+0.45,\yT-\dioH) -- (\xB+0.45,\yT+\dioH);                           % bar
+		\draw (\xB+0.45,\yT) -- (\xB+\dioLead,\yT);
+		\node[below=10pt] at (\xB,\yT) {\textit{diode}};
+		
+		% --- LED (diode + two 45° arrows) ---
+		\draw (\xC-\dioLead,\yT) -- (\xC-0.9,\yT);
+		\draw (\xC-0.9,\yT+\dioH) -- (\xC-0.9,\yT-\dioH) -- (\xC+0.25,\yT) -- cycle;
+		\draw (\xC+0.45,\yT-\dioH) -- (\xC+0.45,\yT+\dioH);
+		\draw (\xC+0.45,\yT) -- (\xC+\dioLead,\yT);
+		% light arrows (matching circuitikz orientation)
+		\draw[->] (\xC,\yT+0.40) -- (\xC+0.3,\yT+0.90);
+		\draw[->] (\xC-0.3,\yT+0.50) -- (\xC+0,\yT+1.00);
+		\node[below=10pt] at (\xC,\yT) {\textit{LED}};
+		
+		% ===== BOTTOM ROW =====
+		% --- Lamp (circle with cross) ---
+		\def\lampLead{1.8} \def\lampR{0.6}
+		\draw (\xA-\lampLead,\yB) -- (\xA-0.7,\yB);
+		\draw (\xA+\lampLead,\yB) -- (\xA+0.7,\yB);
+		\draw (\xA,\yB) circle[radius=\lampR];
+		\draw (\xA-0.42,\yB-0.42) -- (\xA+0.42,\yB+0.42);
+		\draw (\xA-0.42,\yB+0.42) -- (\xA+0.42,\yB-0.42);
+		\node[below=10pt] at (\xA,\yB) {\textit{lamp}};
+		
+		% --- Switch (open) ---
+		\draw (\xB-2.2,\yB) -- (\xB-0.5,\yB) node[circle,fill=black,inner sep=2.4pt] (SL) {};
+		\draw (\xB+2.2,\yB) -- (\xB+0.5,\yB) node[circle,fill=black,inner sep=2.4pt] (SR) {};
+		\draw (SL) -- ++(0.95,0.85);
+		\node[below=10pt] at (\xB,\yB) {\textit{schakelaar}};
+		
+		% --- Transistor NPN (IEC-like, no circle) ---
+		% vertical body
+		\draw (\xC+0.7,\yB-1.1) -- (\xC+0.7,\yB+2.0);
+		% base (left, to body)
+		\draw (\xC-2.0,\yB) -- (\xC+0.3,\yB) -- (\xC+0.7,\yB);
+		% collector (up from body)
+		\draw (\xC+0.7,\yB+1.2) -- (\xC+0.7,\yB+2.0);
+		% emitter (down-right) with outward arrow (npn)
+		\draw[->] (\xC+0.7,\yB-0.2) -- (\xC+1.6,\yB-1.1);
+		\node[below=10pt] at (\xC,\yB-0.05) {\textit{transistor}};
+	\end{tikzpicture}
+	
+	
