@@ -1,0 +1,299 @@
+	\begin{exercise}
+		In 2009, Usain Bolt ran the 100 m sprint in 9.58 s, setting a world record.  
+		What was his average speed in m/s and km/h?
+		
+		\[ \overline{v} = \answer[onlineshowanswerbutton]{10.4} \ \text{m/s} = \answer[onlineshowanswerbutton]{37.6} \ \text{km/h} \]
+		
+		\begin{solution}
+			The average speed is given by
+			\[
+			\overline{v} = \frac{\Delta x}{\Delta t}.
+			\]
+			Here $\Delta x = 100$ m and $\Delta t = 9.58$ s. Thus,
+			\[
+			\overline{v} = \frac{100}{9.58} \approx 10.4 \ \frac{\rm m}{\rm s}.
+			\]
+			
+			To convert to km/h, we multiply by 3.6:
+			\[
+			10.4 \ \frac{\rm m}{\rm s} \cdot 3.6 = 37.6 \ \frac{\rm km}{\rm h}.
+			\]
+			
+			So Bolt’s average speed was about $10.4$ m/s or $37.6$ km/h.
+		\end{solution}
+	\end{exercise}
+	
+	\begin{exercise}
+		A cyclist increases her speed uniformly from $5.0$ m/s to $11.0$ m/s in $12$ seconds.  
+		What is her acceleration, and how far does she travel during this time?
+		
+		\[ a = \answer[onlineshowanswerbutton]{0.50} \ \text{m/s}^2, \qquad d = \answer[onlineshowanswerbutton]{96} \ \text{m} \]
+		
+		\begin{solution}
+			We start with the acceleration:
+			\[
+			a = \frac{\Delta v}{\Delta t} = \frac{11.0 - 5.0}{12} = \frac{6.0}{12} = 0.50 \ \text{m/s}^2.
+			\]
+			
+			The distance covered is given by the formula
+			\[
+			x = v_0 t + \tfrac{1}{2} a t^2.
+			\]
+			With $v_0 = 5.0$ m/s, $a=0.50$ m/s$^2$, and $t=12$ s:
+			\[
+			x = 5.0 \cdot 12 + \tfrac{1}{2}(0.50)(12^2) = 60 + 0.25 \cdot 144 = 60 + 36 = 96 \ \text{m}.
+			\]
+			
+			Thus, the cyclist accelerates at $0.50$ m/s$^2$ and covers $96$ m.
+		\end{solution}
+	\end{exercise}
+	
+	
+	\begin{exercise}
+		A ball is dropped from rest from a height of $20$ m.  
+		\begin{question}
+			How long does it take for the ball to reach the ground?  
+			$t = \answer[onlineshowanswerbutton]{2.02}$ s
+		\end{question}
+		\begin{question}
+			What is the velocity of the ball just before hitting the ground?  
+			$v = \answer[onlineshowanswerbutton]{19.8}$ m/s
+		\end{question}
+		
+		\begin{solution}
+			The vertical motion is uniformly accelerated, with initial velocity $v_0=0$ and acceleration $g=9.81$ m/s$^2$.  
+			
+			(a) Time to fall:  
+			We solve
+			\[
+			y = y_0 - \tfrac{1}{2} g t^2.
+			\]
+			Setting $y=0$ and $y_0=20$ m:
+			\[
+			0 = 20 - \tfrac{1}{2}(9.81)t^2 \quad \Rightarrow \quad t^2 = \frac{40}{9.81} \approx 4.08,
+			\]
+			so
+			\[
+			t \approx 2.02 \ \text{s}.
+			\]
+			
+			(b) Final velocity:  
+			\[
+			v = v_0 + g t = 0 + 9.81 \cdot 2.02 \approx 19.8 \ \text{m/s}.
+			\]
+			
+			So the ball hits the ground after about 2.0 s with a velocity of 19.8 m/s downward.
+		\end{solution}
+	\end{exercise}
+	
+
+	\begin{exercise}
+		A sprinter accelerates uniformly from rest to a speed of $9.0$ m/s in $3.0$ s.  
+		\begin{question}
+			What is the acceleration of the sprinter?  
+			$a = \answer[onlineshowanswerbutton]{3.0}$ m/s$^2$
+		\end{question}
+		\begin{question}
+			How far does the sprinter run in these $3.0$ s?  
+			$d = \answer[onlineshowanswerbutton]{13.5}$ m
+		\end{question}
+		
+		\begin{solution}
+			(a) The acceleration is found from
+			\[
+			a = \frac{\Delta v}{\Delta t} = \frac{9.0 - 0}{3.0} = 3.0 \ \text{m/s}^2.
+			\]
+			
+			(b) The distance is given by
+			\[
+			x = v_0 t + \tfrac{1}{2} a t^2.
+			\]
+			Here $v_0 = 0$, $a=3.0$ m/s$^2$, $t=3.0$ s:
+			\[
+			x = \tfrac{1}{2} (3.0)(3.0^2) = 0.5 \cdot 3.0 \cdot 9.0 = 13.5 \ \text{m}.
+			\]
+			
+			So the sprinter covers 13.5 m in the first 3 seconds.
+		\end{solution}
+	\end{exercise}
+	
+	
+	\begin{exercise}
+		A car traveling at $20$ m/s begins to brake with a uniform deceleration of $-4.0$ m/s$^2$.
+		\begin{question}
+			How long does it take for the car to come to rest?  
+			$t = \answer[onlineshowanswerbutton]{5.0}$ s
+		\end{question}
+		\begin{question}
+			How far does the car travel before stopping?  
+			$d = \answer[onlineshowanswerbutton]{50}$ m
+		\end{question}
+		
+		\begin{solution}
+			(a) The time is given by
+			\[
+			v = v_0 + at \quad \Rightarrow \quad 0 = 20 + (-4.0)t,
+			\]
+			so
+			\[
+			t = \frac{20}{4.0} = 5.0 \ \text{s}.
+			\]
+			
+			(b) The distance is
+			\[
+			x = v_0 t + \tfrac{1}{2} a t^2 = 20 \cdot 5.0 + 0.5 \cdot (-4.0) \cdot (5.0^2).
+			\]
+			\[
+			x = 100 - 50 = 50 \ \text{m}.
+			\]
+			
+			Thus, the car takes 5.0 s to stop and travels 50 m in the process.
+		\end{solution}
+	\end{exercise}
+	
+	\begin{exercise}
+		A stone is thrown straight upwards with an initial velocity of $12$ m/s.
+		\begin{question}
+			How high does the stone rise above its starting point?  
+			$h = \answer[onlineshowanswerbutton]{7.3}$ m
+		\end{question}
+		\begin{question}
+			How long does it take to reach this highest point?  
+			$t = \answer[onlineshowanswerbutton]{1.22}$ s
+		\end{question}
+		
+		\begin{solution}
+			At the highest point, the vertical velocity is zero.
+			
+			(a) Using $v^2 = v_0^2 + 2 a \Delta y$ with $v=0$, $v_0=12$ m/s, $a=-9.81$ m/s$^2$:
+			\[
+			0 = 12^2 - 2(9.81)h \quad \Rightarrow \quad h = \frac{144}{19.62} \approx 7.3 \ \text{m}.
+			\]
+			
+			(b) Time to highest point:
+			\[
+			v = v_0 + at \quad \Rightarrow \quad 0 = 12 - 9.81t,
+			\]
+			so
+			\[
+			t = \frac{12}{9.81} \approx 1.22 \ \text{s}.
+			\]
+			
+			Thus, the stone rises to 7.3 m in about 1.2 s.
+		\end{solution}
+	\end{exercise}
+	
+	\begin{exercise}
+		A projectile is launched from ground level with speed $v_0 = 22.0\ \mathrm{m/s}$ at an angle $\theta = 53^\circ$ above the horizontal.
+		A wall of height $6.0\ \mathrm{m}$ stands at $x=24.0\ \mathrm{m}$ from the launch point.
+		
+		\begin{question}
+			Does the projectile clear the wall? By how much (top clearance)? \\
+			\(\text{Clearance} = \answer[onlineshowanswerbutton]{9.75}\ \mathrm{m}\) (positive means it clears).
+		\end{question}
+		\begin{question}
+			What is the total range (landing back at launch height, neglecting air resistance)? \\
+			\(R = \answer[onlineshowanswerbutton]{47.4}\ \mathrm{m}\)
+		\end{question}
+		
+		\begin{solution}
+			Horizontal motion: \(x(t)=v_0\cos\theta\ t\).  
+			Vertical motion: \(y(t)=v_0\sin\theta\ t-\tfrac12 g t^2\).
+			
+			Time to the wall:
+			\[
+			t_w=\frac{24.0}{v_0\cos 53^\circ}
+			=\frac{24.0}{22.0\cdot 0.6018}\approx 1.813\ \mathrm{s}.
+			\]
+			Height at the wall:
+			\[
+			y(t_w)=22.0\cdot 0.7986\cdot 1.813 - \tfrac12(9.81)(1.813)^2
+			\approx 31.85 - 16.10 = 15.75\ \mathrm{m}.
+			\]
+			Clearance above a \(6.0\ \mathrm{m}\) wall: \(15.75-6.00=9.75\ \mathrm{m}\) (clears).
+			
+			Range (same launch/landing height):
+			\[
+			R=\frac{v_0^2\sin(2\theta)}{g}
+			=\frac{22.0^2\cdot \sin 106^\circ}{9.81}
+			\approx \frac{484\cdot 0.9613}{9.81}\approx 47.4\ \mathrm{m}.
+			\]
+		\end{solution}
+	\end{exercise}
+	
+	\begin{exercise}
+		A driver travels at \(v_0=27.0\ \mathrm{m/s}\) when an obstacle appears \(60.0\ \mathrm{m}\) ahead.
+		Reaction time is \(0.80\ \mathrm{s}\). After reacting, the car brakes uniformly with \(a=-7.0\ \mathrm{m/s^2}\).
+		
+		\begin{question}
+			Can the driver stop in time? \wordChoice{\choice{Yes}\choice[correct]{No}}
+		\end{question}
+		\begin{question}
+			If not, what is the impact speed? \(\ v_{\text{impact}}=\answer[onlineshowanswerbutton]{13.8}\ \mathrm{m/s}\)
+		\end{question}
+		
+		\begin{solution}
+			During reaction, distance covered:
+			\[
+			x_{\mathrm{react}}=v_0\,t_r=27.0\cdot 0.80=21.6\ \mathrm{m}.
+			\]
+			Remaining distance for braking: \(60.0-21.6=38.4\ \mathrm{m}\).
+			
+			Braking distance to stop from \(27.0\ \mathrm{m/s}\):
+			\[
+			x_{\mathrm{stop}}=\frac{v_0^2}{2|a|}=\frac{27.0^2}{2\cdot 7.0}=\frac{729}{14}\approx 52.1\ \mathrm{m}.
+			\]
+			Since \(52.1>38.4\), the car cannot stop in time.
+			
+			Impact speed from energy/kine. relation on the braking segment:
+			\[
+			v^2=v_0^2-2|a|\,x
+			\Rightarrow v=\sqrt{27.0^2-2\cdot 7.0\cdot 38.4}
+			=\sqrt{729-537.6}=\sqrt{191.4}\approx 13.8\ \mathrm{m/s}.
+			\]
+		\end{solution}
+	\end{exercise}
+	
+	\begin{exercise}
+		A particle starts at \(x_0=0\) with initial speed \(v_0=2.0\ \mathrm{m/s}\). Its acceleration is time-dependent:
+		\[
+		a(t)=0.80\,t\quad (\mathrm{m/s^3}).
+		\]
+		\begin{question}
+			Find \(v(t)\) and \(x(t)\).
+			\[
+			v(t)=\answer[onlineshowanswerbutton]{2.0+0.40\,t^2}\ \mathrm{m/s},\qquad
+			x(t)=\answer[onlineshowanswerbutton]{2.0\,t+\tfrac{0.40}{3}\,t^3}\ \mathrm{m}.
+			\]
+		\end{question}
+		\begin{question}
+			Evaluate at \(t=4.0\,\mathrm{s}\): \(v(4)=\answer[onlineshowanswerbutton]{8.4}\ \mathrm{m/s}\), \(x(4)=\answer[onlineshowanswerbutton]{16.53}\ \mathrm{m}\).
+		\end{question}
+		\begin{question}
+			Average acceleration on \([0,4]\): \(\bar a=\answer[onlineshowanswerbutton]{1.6}\ \mathrm{m/s^2}\).
+		\end{question}
+		\begin{question}
+			At what time does \(v(t)=10.0\ \mathrm{m/s}\)? \(\ t=\answer[onlineshowanswerbutton]{4.47}\ \mathrm{s}\).
+		\end{question}
+		
+		\begin{solution}
+			Integrate \(a(t)\) to get velocity:
+			\[
+			v(t)=v_0+\int_0^t 0.80\,\tau\,d\tau=2.0+0.40\,t^2.
+			\]
+			Integrate \(v(t)\) to get position:
+			\[
+			x(t)=\int_0^t \bigl(2.0+0.40\,\tau^2\bigr)\,d\tau
+			=2.0\,t+\frac{0.40}{3}\,t^3.
+			\]
+			At \(t=4\): \(v(4)=2.0+0.40\cdot 16=8.4\ \mathrm{m/s}\);
+			\[
+			x(4)=2\cdot 4+\frac{0.40}{3}\cdot 64=8+\frac{25.6}{3}\approx 16.53\ \mathrm{m}.
+			\]
+			Average acceleration:
+			\[
+			\bar a=\frac{v(4)-v_0}{4}=\frac{8.4-2.0}{4}=1.6\ \mathrm{m/s^2}.
+			\]
+			Solve \(10=2+0.40\,t^2\Rightarrow t^2=20\Rightarrow t\approx 4.47\ \mathrm{s}\) (take the positive root).
+		\end{solution}
+	\end{exercise}

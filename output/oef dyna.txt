@@ -1,0 +1,203 @@
+		\begin{exercise}
+			A crate is pushed across a floor and then released. While it slides \emph{at constant speed}, what is the net force on the crate?
+			
+			\setchoicesquarenl
+			\wordChoice{
+				\choice{Equal to the pushing force.}
+				\choice{Equal to the friction force.}
+				\choice[correct]{Zero.}
+				\choice{Depends on the mass.}
+			}
+			
+			\begin{oplossing}
+				“Constant speed’’ means the velocity vector does not change in magnitude (and the motion is in a straight line). Therefore the acceleration is zero. By Newton’s second law, $\sum \vec F = m\vec a = \vec 0$: all forces (push and kinetic friction, plus the vertical normal and weight) balance to a net force of zero. The horizontal push and friction are equal in magnitude and opposite in direction; the normal force balances the weight.
+			\end{oplossing}
+		\end{exercise}
+		
+		\begin{exercise}
+			A passenger stands on a scale in an elevator (mass of passenger $m=72$ kg). The elevator:
+			\begin{enumerate}
+				\item starts upward with acceleration $a_1=1.8$ m/s$^2$,
+				\item then moves at constant speed,
+				\item finally slows down while moving upward with acceleration $a_3=-1.5$ m/s$^2$ (downward).
+			\end{enumerate}
+			What does the scale read (apparent weight $N$) in each phase?
+			
+			\[
+			\begin{array}{l}
+				\text{Start: } N_1=\answer[onlineshowanswerbutton]{836}\ \text{N} \\
+				\text{Cruise: } N_2=\answer[onlineshowanswerbutton]{706}\ \text{N} \\
+				\text{Brake: } N_3=\answer[onlineshowanswerbutton]{598}\ \text{N}
+			\end{array}
+			\]
+			
+			\begin{oplossing}
+				Take up as positive. Newton’s second law in $y$ gives $N - mg = ma$ so $N = m(g+a)$.
+				\begin{align*}
+					N_1 &= 72(9.81+1.8)\approx 8.36\times 10^2\ \text{N},\\
+					N_2 &= 72(9.81+0)=7.06\times 10^2\ \text{N},\\
+					N_3 &= 72(9.81-1.5)\approx 5.98\times 10^2\ \text{N}.
+				\end{align*}
+				Physically: speeding up upward feels heavier ($N>mg$), constant speed feels normal ($N=mg$), slowing while going up feels lighter ($N<mg$).
+			\end{oplossing}
+		\end{exercise}
+		
+
+		
+		\begin{exercise}
+			A $32$ kg crate is pulled on a horizontal floor by a \emph{horizontal} force of $150$ N. The coefficient of kinetic friction is $\mu_k=0.35$.
+			\begin{question}
+				Normal force: $F_N=\answer[onlineshowanswerbutton]{314}\ \text{N}$
+			\end{question}
+			\begin{question}
+				Acceleration: $a=\answer[onlineshowanswerbutton]{1.25}\ \text{m/s}^2$
+			\end{question}
+			
+			\begin{oplossing}
+				For a horizontal pull, $F_N=mg=32\cdot 9.81\approx 314$ N. The friction magnitude is $F_f=\mu_kF_N\approx 0.35\cdot 314=110$ N. Net horizontal force is $F_\text{net}=150-110=40$ N, so
+				\[
+				a=\frac{F_\text{net}}{m}=\frac{40}{32}\approx 1.25\ \text{m/s}^2.
+				\]
+			\end{oplossing}
+		\end{exercise}
+		
+		\begin{exercise}
+			A block ($m=8.0$ kg) is projected \emph{up} a rough incline ($\theta=28^\circ$) with initial speed $v_0=12$ m/s. The kinetic friction coefficient is $\mu_k=0.18$.
+			\begin{question}
+				How far up the slope does it travel before coming (momentarily) to rest?
+				\[
+				s_{\uparrow}=\answer[onlineshowanswerbutton]{11.7}\ \text{m}
+				\]
+			\end{question}
+			\begin{question}
+				How long after launch does it return to the starting point?
+				\[
+				\Delta t=\answer[onlineshowanswerbutton]{4.72}\ \text{s}
+				\]
+			\end{question}
+			
+			\begin{hint}
+				Along the slope: while moving up, $a_\uparrow=-g(\sin\theta+\mu_k\cos\theta)$; while sliding down, $a_\downarrow=+g(\sin\theta-\mu_k\cos\theta)$.
+			\end{hint}
+			
+			\begin{oplossing}
+				\textbf{Upward leg.} Forces down the slope are $mg\sin\theta$ and friction $\mu_k mg\cos\theta$, both opposite the motion, so
+				\[
+				a_\uparrow=-g(\sin\theta+\mu_k\cos\theta).
+				\]
+				Numerically: $a_\uparrow=-9.81(\sin 28^\circ+0.18\cos 28^\circ)\approx -7.37$ m/s$^2$.
+				Use $v^2=v_0^2+2a_\uparrow s_\uparrow$ with $v=0$ at the top:
+				\[
+				s_\uparrow=\frac{v_0^2}{-2a_\uparrow}=\frac{12^2}{2(7.37)}\approx 11.7\ \text{m},\qquad
+				t_\uparrow=\frac{v-v_0}{a_\uparrow}=\frac{-12}{-7.37}\approx 1.95\ \text{s}.
+				\]
+				
+				\textbf{Downward leg.} Now motion is down; friction acts up, so
+				\[
+				a_\downarrow=+g(\sin\theta-\mu_k\cos\theta)=9.81(\sin 28^\circ-0.18\cos 28^\circ)\approx 3.05\ \text{m/s}^2.
+				\]
+				Starting from rest and traveling $s_\uparrow$ back: $s=\tfrac12 a_\downarrow t_\downarrow^2$, so
+				\[
+				t_\downarrow=\sqrt{\frac{2s_\uparrow}{a_\downarrow}}=\sqrt{\frac{2(11.7)}{3.05}}\approx 2.77\ \text{s}.
+				\]
+				Total time: $\Delta t=t_\uparrow+t_\downarrow\approx 1.95+2.77=4.72$ s.
+			\end{oplossing}
+		\end{exercise}
+		
+	
+		
+		\begin{exercise}
+			A car negotiates a \emph{frictionless banked} curve of radius $R=50$ m banked at $\theta=20^\circ$. At what speed can it take the curve with no lateral friction?
+			\[
+			v=\answer[onlineshowanswerbutton]{13.36}\ \text{m/s}\ \ (\approx \answer[onlineshowanswerbutton]{48.1}\ \text{km/h})
+			\]
+			
+			\begin{oplossing}
+				For no side friction, the horizontal component of the normal supplies the centripetal force:
+				\[
+				N\sin\theta=\frac{mv^2}{R},\quad N\cos\theta=mg \Rightarrow \tan\theta=\frac{v^2}{gR}.
+				\]
+				Thus $v=\sqrt{gR\tan\theta}=\sqrt{9.81\cdot 50\cdot \tan 20^\circ}\approx 13.36$ m/s $\approx 48.1$ km/h.
+			\end{oplossing}
+		\end{exercise}
+		
+		\begin{exercise}
+			A car passes over the top of a hill of radius of curvature $R=85$ m. What is the maximum speed to avoid losing contact (normal force just zero at the crest)?
+			\[
+			v_\text{max}=\answer[onlineshowanswerbutton]{28.9}\ \text{m/s}\ \ (\approx \answer[onlineshowanswerbutton]{104}\ \text{km/h})
+			\]
+			
+			\begin{oplossing}
+				At the crest, $N=0$ at the threshold. Newton’s 2nd law toward the center gives $mg-N = m\frac{v^2}{R}\ \Rightarrow\ v_\text{max}=\sqrt{gR}=\sqrt{9.81\cdot 85}\approx 28.9$ m/s $\approx 104$ km/h.
+			\end{oplossing}
+		\end{exercise}
+		
+		\begin{exercise}
+			A Ferris wheel has radius $R=12$ m and runs at constant speed $v=6.0$ m/s. A rider of mass $58$ kg sits on a scale that reads the normal force. What does the scale read at the top and at the bottom?
+			\[
+			N_\text{top}=\answer[onlineshowanswerbutton]{395}\ \text{N},\qquad
+			N_\text{bottom}=\answer[onlineshowanswerbutton]{743}\ \text{N}.
+			\]
+			
+			\begin{oplossing}
+				Centripetal acceleration magnitude is $a_c=v^2/R=36/12=3.0$ m/s$^2$ toward the center.
+				\[
+				\text{Top:}\quad mg - N = m a_c \Rightarrow N = m(g-a_c)=58(9.81-3.0)\approx 395\ \text{N}.
+				\]
+				\[
+				\text{Bottom:}\quad N - mg = m a_c \Rightarrow N = m(g+a_c)=58(9.81+3.0)\approx 743\ \text{N}.
+				\]
+			\end{oplossing}
+		\end{exercise}
+		
+		\begin{exercise}
+			Two masses hang over a light frictionless pulley: $m_1=3.2$ kg, $m_2=1.4$ kg. Find the acceleration magnitude and the tension.
+			\[
+			|a|=\answer[onlineshowanswerbutton]{4.46}\ \text{m/s}^2,\qquad
+			T=\answer[onlineshowanswerbutton]{17.1}\ \text{N}.
+			\]
+			
+			\begin{oplossing}
+				The heavier mass $m_1$ goes down. Magnitude:
+				\[
+				a=\frac{(m_1-m_2)g}{m_1+m_2}=\frac{(3.2-1.4)9.81}{4.6}\approx 4.46\ \text{m/s}^2.
+				\]
+				Use $T=m_1(g-a)$ (or equivalently $T=m_2(g+a)$):
+				\[
+				T=3.2(9.81-4.46)\approx 17.1\ \text{N}.
+				\]
+			\end{oplossing}
+		\end{exercise}
+		
+		\begin{exercise}
+			A block of mass $m_1=3.0$ kg rests on a $30^\circ$ incline ($\mu_k=0.12$). It is connected over a frictionless pulley to a hanging mass $m_2=2.0$ kg. Find the acceleration magnitude and the rope tension.
+			
+			\[
+			|a|=\answer[onlineshowanswerbutton]{0.369}\ \text{m/s}^2,\qquad
+			T=\answer[onlineshowanswerbutton]{18.9}\ \text{N}.
+			\]
+			
+			\begin{oplossing}
+				Assume $m_2$ moves downward (so $m_1$ up the slope). Along $m_1$:
+				\[
+				T - m_1 g\sin\theta - \mu_k m_1 g\cos\theta = m_1 a.
+				\]
+				For $m_2$:
+				\[
+				m_2 g - T = m_2 a.
+				\]
+				Add the equations:
+				\[
+				m_2 g - m_1 g\sin\theta - \mu_k m_1 g\cos\theta = (m_1+m_2)a.
+				\]
+				Hence
+				\[
+				a=\frac{m_2 g - m_1 g(\sin\theta+\mu_k\cos\theta)}{m_1+m_2}
+				=\frac{2\cdot 9.81 - 3\cdot 9.81(\tfrac12+0.12\cdot\tfrac{\sqrt3}{2})}{5}\approx +0.369\ \text{m/s}^2.
+				\]
+				The $+$ confirms our assumed direction: $m_2$ moves down, $m_1$ up. Then tension from $m_2$’s equation:
+				\[
+				T=m_2(g-a)\approx 2(9.81-0.369)=18.9\ \text{N}.
+				\]
+			\end{oplossing}
+		\end{exercise}

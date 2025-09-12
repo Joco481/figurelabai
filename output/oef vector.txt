@@ -1,0 +1,190 @@
+	\begin{exercise}
+		The magnitude of a vector is $2.0$ m. What are the $x$ and $y$ components if the angle that the vector makes with the $x$-axis (measured counterclockwise) is:
+		\begin{question}
+			If the angle is $30^\circ$, then
+			$x = \answer[onlineshowanswerbutton]{1.73}$ m and $y = \answer[onlineshowanswerbutton]{1.00}$ m
+		\end{question}
+		\begin{question}
+			If the angle is $60^\circ$, then
+			$x = \answer[onlineshowanswerbutton]{1.00}$ m and $y = \answer[onlineshowanswerbutton]{1.73}$ m
+		\end{question}
+		\begin{question}
+			If the angle is $120^\circ$, then
+			$x = \answer[onlineshowanswerbutton]{-1.00}$ m and $y = \answer[onlineshowanswerbutton]{1.73}$ m
+		\end{question}
+		
+		\begin{oplossing}
+			We use the standard formulas for the components of a vector:
+			\[
+			x = r \cos \theta, \qquad y = r \sin \theta
+			\]
+			with $r=2.0$ m.
+			
+			At $30^\circ$:
+			\[
+			x = 2.0 \cos 30^\circ = 2.0 \cdot 0.866 \approx 1.73 \quad \text{m}, \quad
+			y = 2.0 \sin 30^\circ = 2.0 \cdot 0.5 = 1.00 \quad \text{m}.
+			\]
+			
+			At $60^\circ$:
+			\[
+			x = 2.0 \cos 60^\circ = 1.00 \quad \text{m}, \quad
+			y = 2.0 \sin 60^\circ \approx 1.73 \quad \text{m}.
+			\]
+			
+			At $120^\circ$:
+			\[
+			x = 2.0 \cos 120^\circ = -1.00 \quad \text{m}, \quad
+			y = 2.0 \sin 120^\circ \approx 1.73 \quad \text{m}.
+			\]
+			Notice how the sign of the $x$-component changes in the second quadrant.
+		\end{oplossing}
+	\end{exercise}
+	
+	
+	\begin{exercise}
+		Given the vectors $\vec{a} = 2\vec{e}_x + 3\vec{e}_y$ and $\vec{b} = -\vec{e}_x + 4\vec{e}_y$, calculate the magnitude of both vectors.
+		
+		\[
+		a = \answer[onlineshowanswerbutton]{\sqrt{13}} \,, \qquad b = \answer[onlineshowanswerbutton]{\sqrt{17}}
+		\]
+		
+		\begin{oplossing}
+			The magnitude of a vector $\vec{v}=(v_x,v_y)$ is given by
+			\[
+			\|\vec{v}\| = \sqrt{v_x^2+v_y^2}.
+			\]
+			
+			For $\vec{a} = (2,3)$:
+			\[
+			a = \sqrt{2^2 + 3^2} = \sqrt{4+9} = \sqrt{13}.
+			\]
+			
+			For $\vec{b} = (-1,4)$:
+			\[
+			b = \sqrt{(-1)^2 + 4^2} = \sqrt{1+16} = \sqrt{17}.
+			\]
+			
+			Thus, $\|\vec{a}\|=\sqrt{13}$ and $\|\vec{b}\|=\sqrt{17}$.
+		\end{oplossing}
+	\end{exercise}
+	
+	\begin{exercise}
+		A vector $\vec{v}$ has components $v_x=-6$ m/s and $v_y=8$ m/s. Determine the magnitude of $\vec{v}$ and the angle it makes with the $x$-axis.
+		
+		\[
+		\|\vec{v}\| = \answer[onlineshowanswerbutton]{10} \ \text{m/s}, \quad
+		\theta = \answer[onlineshowanswerbutton]{126.9}^\circ
+		\]
+		
+		\begin{oplossing}
+			First, compute the magnitude:
+			\[
+			\|\vec{v}\| = \sqrt{(-6)^2 + (8)^2} = \sqrt{36+64} = \sqrt{100} = 10 \ \text{m/s}.
+			\]
+			
+			Next, compute the angle:
+			\[
+			\theta = \arctan\!\left(\frac{v_y}{v_x}\right) = \arctan\!\left(\frac{8}{-6}\right).
+			\]
+			On the calculator this gives $-53.1^\circ$. However, since the vector lies in the second quadrant ($v_x<0$, $v_y>0$), we must add $180^\circ$:
+			\[
+			\theta = -53.1^\circ + 180^\circ = 126.9^\circ.
+			\]
+			
+			So the vector has magnitude $10$ m/s and makes an angle of $126.9^\circ$ counterclockwise from the positive $x$-axis.
+		\end{oplossing}
+	\end{exercise}
+	
+	\begin{exercise}
+		A vector $\vec{p}$ has a magnitude of $5.0$ m and makes an angle of $300^\circ$ with the $x$-axis.  
+		Determine its components.
+		
+		\[
+		p_x = \answer[onlineshowanswerbutton]{2.5} \ \text{m}, \quad
+		p_y = \answer[onlineshowanswerbutton]{-4.33} \ \text{m}
+		\]
+		
+		\begin{oplossing}
+			We use:
+			\[
+			p_x = p \cos \theta, \qquad p_y = p \sin \theta.
+			\]
+			With $p=5.0$ m and $\theta = 300^\circ$:
+			
+			\[
+			p_x = 5.0 \cos 300^\circ = 5.0 \cdot 0.5 = 2.5 \ \text{m},
+			\]
+			\[
+			p_y = 5.0 \sin 300^\circ = 5.0 \cdot (-0.866) \approx -4.33 \ \text{m}.
+			\]
+			
+			Thus, $\vec{p} = (2.5, -4.33)$ m. Notice that $p_y$ is negative because the vector points below the $x$-axis.
+		\end{oplossing}
+	\end{exercise}
+	
+	\begin{exercise}
+		Given the vectors $\vec{a} = (3,2)$ and $\vec{b} = (-2,4)$, calculate:  
+		(a) $\vec{a} + \vec{b}$, (b) $\vec{a} - \vec{b}$, and (c) $2\vec{a} + 3\vec{b}$.
+		
+		\[
+		\vec{a} + \vec{b} = \answer[onlineshowanswerbutton]{(1,6)}, \quad
+		\vec{a} - \vec{b} = \answer[onlineshowanswerbutton]{(5,-2)}, \quad
+		2\vec{a} + 3\vec{b} = \answer[onlineshowanswerbutton]{(0,16)}
+		\]
+		
+		\begin{oplossing}
+			We treat each vector as an ordered pair and add/subtract component-wise.
+			
+			(a) Addition:
+			\[
+			\vec{a} + \vec{b} = (3,-2) + (-2,4) = (3-2,2+4) = (1,6).
+			\]
+			
+			(b) Subtraction:
+			\[
+			\vec{a} - \vec{b} = (3,2) - (-2,4) = (3+2,2-4) = (5,-2).
+			\]
+			
+			(c) Linear combination:
+			\[
+			2\vec{a} + 3\vec{b} = 2(3,2) + 3(-2,4) = (6,4) + (-6,12) = (0,16).
+			\]
+			
+			Each step shows how we separately handle the $x$- and $y$-components.
+		\end{oplossing}
+	\end{exercise}
+	
+					
+	\begin{exercise}
+		Two hikers leave from the same point.  
+		The first walks $4.0$ km east, then $3.0$ km north.  
+		The second walks $5.0$ km straight northeast (i.e. $45^\circ$ from east).  
+		
+		Which hiker is farther from the starting point, and by how much?
+		
+		\[
+		\Delta r = \answer[onlineshowanswerbutton]{0.0} \ \text{km}
+		\]
+		
+		\begin{oplossing}
+			For hiker 1, we represent the path as $\vec{r}_1 = (4.0, 3.0)$.  
+			The distance from the origin is:
+			\[
+			r_1 = \sqrt{4.0^2 + 3.0^2} = \sqrt{16+9} = \sqrt{25} = 5.0 \ \text{km}.
+			\]
+			
+			For hiker 2, the displacement is:
+			\[
+			\vec{r}_2 = (5.0\cos 45^\circ, \, 5.0\sin 45^\circ) \approx (3.54, 3.54).
+			\]
+			The distance is:
+			\[
+			r_2 = \sqrt{3.54^2+3.54^2} = \sqrt{25} = 5.0 \ \text{km}.
+			\]
+			
+			Both hikers end up at exactly the same distance from the origin: $5.0$ km.  
+			The difference in distances is therefore zero.  
+			However, their directions are different: $\vec{r}_1=(4,3)$ and $\vec{r}_2\approx(3.54,3.54)$.
+		\end{oplossing}
+	\end{exercise}

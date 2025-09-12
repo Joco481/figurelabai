@@ -1,0 +1,147 @@
+								\begin{exercise}
+									A satellite moves in a \emph{circular} orbit at constant speed under the gravitational pull of the Earth. What is the total work done by gravity over one full orbit?
+									%
+									\wordChoice{\choice{Positive}\choice{Negative}\choice[correct]{Zero}\choice{Depends on mass}}
+									\begin{oplossing}
+										Work is the line integral $\displaystyle W=\int \vec F\cdot d\vec r$. In uniform circular motion, gravity is always \emph{radial} while $d\vec r$ is \emph{tangential}, so $\vec F\perp d\vec r$ at every point and $\vec F\cdot d\vec r=0$. Hence the total work over a closed circular path is zero.
+									\end{oplossing}
+								\end{exercise}
+								
+								\begin{exercise}
+									Two birds start in the same point and fly along different paths, they both arrive on a same spot on a different height as the start, consider no friction. Is the work done by gravity the same along both paths?
+									%
+									\wordChoice{\choice[correct]{Yes}\choice{No}}
+									\begin{oplossing}
+										Gravity is a \emph{conservative} force. The work it does depends only on the initial and final heights: $W_g=mg\,(y_i-y_f)$, independent of the path taken.
+									\end{oplossing}
+								\end{exercise}
+	
+								
+								\begin{exercise}
+									The $x$-component of the force on a $2.0$ kg block varies with position as shown: it is $F_x=10$ N for $0\le x\le 3$ m and then decreases linearly to $F_x=-5$ N at $x=5$ m. The block enters at $x=0$ with $v_0=1.0$ m/s. Find the net work done from $0$ to $5$ m and the speed at $x=5$ m.
+									%
+									\begin{image}[0.48\textwidth]
+										\begin{tikzpicture}
+											\begin{axis}[
+												width=7.6cm,height=4.6cm,axis lines=middle,grid=both,
+												xlabel={$x$ (m)},ylabel={$F_x$ (N)},
+												xmin=0,xmax=5.3,ymin=-6,ymax=11,
+												xtick={0,1,2,3,4,5}, ytick={-5,0,5,10},
+												]
+												\addplot[very thick, xmblue] coordinates {(0,10) (3,10)};
+												\addplot[very thick, xmblue] coordinates {(3,10) (5,-5)};
+											\end{axis}
+										\end{tikzpicture}
+									\end{image}
+									
+									\[
+									W=\answer[onlineshowanswerbutton]{35}\ \text{J},\qquad v(5\,\text{m})=\answer[onlineshowanswerbutton]{6.0}\ \text{m/s}
+									\]
+									
+									\begin{oplossing}
+										Work is the area under $F_x(x)$:
+										\[
+										W = (10)(3) + \tfrac12(10+(-5))(2) = 30 + 5 = 35\ \text{J}.
+										\]
+										By the work–energy theorem, $E_{k, f}=E_{k, i}+W$. With $E_{k, f}=\tfrac12(2.0)(1.0)^2=1$ J, we get $E_{k, f}=36$ J. Thus
+										\[
+										v_f=\sqrt{\frac{2E_{k, f}}{m}}=\sqrt{\frac{72}{2.0}}=6.0\ \text{m/s}.
+										\]
+									\end{oplossing}
+								\end{exercise}
+								
+								
+								\begin{exercise}
+									A $30$ kg crate is pulled \emph{horizontally} across the floor for $d=12$ m by a rope that makes an angle $\theta=25^\circ$ above the horizontal. The coefficient of kinetic friction is $\mu_k=0.20$, and the crate moves at \emph{constant speed}. Find the required pull $F$, and the work done by (i) the person, (ii) friction, (iii) gravity, (iv) the normal force, and (v) the net work on the block.
+									%
+									\[
+									F=\answer[onlineshowanswerbutton]{59.4}\ \text{N},\quad
+									W_{\text{person}}=\answer[onlineshowanswerbutton]{646}\ \text{J},\quad
+									W_f=\answer[onlineshowanswerbutton]{-646}\ \text{J},\quad
+									W_g=\answer[onlineshowanswerbutton]{0}\ \text{J},\quad
+									W_N=\answer[onlineshowanswerbutton]{0}\ \text{J},\quad
+									W_{\text{net}}=\answer[onlineshowanswerbutton]{0}\ \text{J}.
+									\]
+									\begin{oplossing}
+										Vertical equilibrium gives $N=mg-F\sin\theta$. Horizontal equilibrium (constant speed) gives
+										\[
+										F\cos\theta=\mu_k N=\mu_k\,(mg-F\sin\theta)\;\Rightarrow\;
+										F=\frac{\mu_k mg}{\cos\theta+\mu_k\sin\theta}.
+										\]
+										With $m=30$ kg, $\mu_k=0.20$, $\theta=25^\circ$, $g=9.81$, we get $F\simeq 59.4$ N. Work of the pull is $W_{\text{person}}=(F\cos\theta)d\approx (59.4\cdot 0.906)\cdot 12\approx 646$ J. Friction does $W_f=-f_k d=-(\mu_k N)d\approx-646$ J. Gravity and normal are perpendicular to the displacement, so they do zero work. Net work is zero, consistent with constant speed.
+									\end{oplossing}
+								\end{exercise}
+								
+								
+								\begin{exercise}
+									A spring ($k=200\ \text{N/m}$) is compressed by $x_0=0.30$ m and launches a $2.5$ kg block along a horizontal rough surface with $\mu_k=0.15$. How far does the block slide before coming to rest?
+									%
+									\[
+									\Delta x=\answer[onlineshowanswerbutton]{2.45}\ \text{m}
+									\]
+									\begin{oplossing}
+										Initial mechanical energy is spring energy $E_0=\tfrac12kx_0^2=\tfrac12(200)(0.30)^2=9.0$ J. All of it is dissipated by friction: $E_0=\mu_k mg\,\Delta x$. Hence
+										\[
+										\Delta x=\frac{9.0}{0.15\cdot 2.5\cdot 9.81}\approx 2.45\ \text{m}.
+										\]
+									\end{oplossing}
+								\end{exercise}
+								
+								
+								\begin{exercise}
+									A frictionless roller coaster starts from rest at height $h_0=30$ m above the lowest point and goes through a loop of radius $R=10$ m.
+									\begin{question}
+										Speed at the bottom: $v_{\text{bottom}}=\answer[onlineshowanswerbutton]{24.3}$ m/s.
+									\end{question}
+									\begin{question}
+										Speed at the top of the loop: $v_{\text{top}}=\answer[onlineshowanswerbutton]{14.0}$ m/s. Is the car pressed onto the track at the top?
+										\wordChoice{\choice[correct]{Yes}\choice{No}}
+									\end{question}
+									
+									\begin{oplossing}
+										Energy: $mgh_0=\tfrac12mv^2$ at the bottom, so $v_{\text{bottom}}=\sqrt{2gh_0}\approx \sqrt{2\cdot9.81\cdot30}=24.3$ m/s. At the top the height is $2R$, so
+										\[
+										v_{\text{top}}=\sqrt{2g(h_0-2R)}=\sqrt{2\cdot9.81\cdot(30-20)}\approx 14.0\ \text{m/s}.
+										\]
+									
+									\end{oplossing}
+								\end{exercise}
+								
+								
+															
+								
+								\begin{exercise}
+									A $1200$ kg car on level ground is pulled by a constant horizontal force $F=3.0$ kN. How much work is needed to increase its speed from $18$ m/s to $36$ m/s? Over what distance and time does this happen under this constant force?
+									%
+									\[
+									W=\answer[onlineshowanswerbutton]{5.83\times 10^5}\ \text{J},\quad
+									\Delta x=\answer[onlineshowanswerbutton]{194}\ \text{m},\quad
+									\Delta t=\answer[onlineshowanswerbutton]{7.2}\ \text{s}
+									\]
+									\begin{oplossing}
+										$\Delta E_k =\tfrac12 m(v_f^2-v_i^2)=\tfrac12(1200)(36^2-18^2)=5.83\times 10^5$ J. With constant $F$, the distance is $\Delta x=W/F\approx 5.83\times10^5/3000\approx 194$ m. Acceleration $a=F/m=2.5$ m/s$^2$, so $\Delta t=(v_f-v_i)/a=18/2.5=7.2$ s.
+									\end{oplossing}
+								\end{exercise}
+								
+								
+								\begin{exercise}
+									A $m$-kg block is projected up a rough incline ($\theta=20^\circ$) with speed $v_0=8.0$ m/s. The kinetic friction coefficient is $\mu_k=0.30$. How far along the incline does it slide before coming to rest?
+									%
+									\[
+									d=\answer[onlineshowanswerbutton]{5.23}\ \text{m}
+									\]
+									\begin{oplossing}
+										Work–energy: initial kinetic energy is lost to gravity and friction:
+										\[
+										\tfrac12 m v_0^2 = mg\,d\sin\theta + \mu_k\,mg\,d\cos\theta
+										= mg\,d(\sin\theta+\mu_k\cos\theta).
+										\]
+										Hence
+										\[
+										d=\frac{v_0^2}{2g(\sin 20^\circ+\mu_k\cos 20^\circ)}
+										=\frac{64}{2\cdot 9.81\,(0.342+0.30\cdot0.940)}
+										\approx 5.23\ \text{m}.
+										\]
+									\end{oplossing}
+								\end{exercise}
+								
